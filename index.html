@@ -21,7 +21,22 @@
   <p>This tour unlocks via QR code.</p>
   <button onclick="unlockTour()">Unlock Tour</button>
 </div>
+<div id="endTour" style="display:none;margin-top:30px;">
+  <h2>🎉 End of the Tour</h2>
+  <p>
+    Thanks for walking Downtown Las Vegas with <b>Vegas Walks</b>.<br>
+    If you enjoyed the tour, tips are greatly appreciated and help keep this experience alive.
+  </p>
 
+  <div id="paypal-container-7SDB2F6UNJJ2E"></div>
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb&components=hosted-buttons"></script>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "7SDB2F6UNJJ2E",
+  }).render("#paypal-container-7SDB2F6UNJJ2E");
+</script>
 <div id="tour" style="display:none;">
 
 <button onclick="startTour()" style="padding:12px 20px;">Start Tour</button>
