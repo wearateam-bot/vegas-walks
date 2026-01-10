@@ -1,219 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Vegas Walks</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Vegas Walks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
-<body style="font-family: system-ui; text-align: center; padding: 28px;">
+<body style="font-family:system-ui;text-align:center;padding:16px;">
 
 <h1>🎰 Vegas Walks</h1>
-<p>Downtown Las Vegas GPS Walking Tour</p>
+<p>Downtown Las Vegas Walking Tour</p>
 
 <button onclick="startTour()" style="padding:14px 22px;font-size:16px;">
   Start Walking Tour
 </button>
 
-<div id="content" style="margin-top:25px;font-weight:500;"></div>
+<div id="map" style="height:260px;margin:15px 0;display:none;"></div>
 
-<button onclick="forceStart()" style="margin-top:15px;padding:10px;">
-  I’m at Sin City Hostel
-</button>
+<div id="content"></div>
 
-<p id="distance" style="font-size:14px;color:#555;margin-top:15px;"></p>
+<p id="distance" style="font-size:14px;color:#555;"></p>
 
 <script>
 const stops = [
 {
-  name: "Sin City Hostel – Wedding Chapel District",
-  lat: 36.15886,
-  lng: -115.14939,
-  radius: 350,
-  triggered: false,
-  info: `
-  💍 <strong>Wedding Capital of the World</strong><br><br>
-  Nevada’s 1931 marriage law changes made Las Vegas the fastest place in America to get married.
-  Chapels clustered here offering quick ceremonies, neon signs, Elvis officiants, and drive-thru vows.
-  This culture helped define Las Vegas as a city built on spontaneity and celebration.
-  `
+  name:"Sin City Hostel – Wedding Chapel District",
+  lat:36.15886,lng:-115.14939,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg",
+  info:"💍 Wedding Capital of the World. Nevada’s 1931 marriage laws made Las Vegas famous for instant weddings."
 },
-
 {
-  name: "El Cortez & Container Park",
-  lat: 36.1706,
-  lng: -115.1409,
-  radius: 350,
-  triggered: false,
-  info: `
-  🏨 <strong>El Cortez & Downtown Revival</strong><br><br>
-  Opened in 1941, El Cortez is one of Las Vegas’ oldest casinos and once had ties to organized crime.
-  Container Park represents modern downtown renewal — transforming a once-quiet area into a family-friendly,
-  creative hub that brought locals back downtown.
-  `
+  name:"El Cortez & Container Park",
+  lat:36.1706,lng:-115.1409,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg",
+  info:"🏨 El Cortez opened in 1941 and remains one of the oldest casinos in Las Vegas."
 },
-
 {
-  name: "Fremont Street & Las Vegas Blvd",
-  lat: 36.1695,
-  lng: -115.1401,
-  radius: 350,
-  triggered: false,
-  info: `
-  🌵 <strong>From Desert Road to Neon Canyon</strong><br><br>
-  This intersection was once a dusty desert road lined with small motels and saloons.
-  Fremont Street became America’s first paved highway coast-to-coast route and the birthplace of Las Vegas.
-  Old photos show a quiet frontier town — what you see today is the result of 120 years of reinvention.
-  `
+  name:"Fremont Street & Las Vegas Blvd",
+  lat:36.1695,lng:-115.1401,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg",
+  info:"🌵 Fremont Street was once a dusty frontier road and is the birthplace of Las Vegas."
 },
-
 {
-  name: "Golden Gate Casino",
-  lat: 36.1702,
-  lng: -115.1441,
-  radius: 350,
-  triggered: false,
-  info: `
-  🏛️ <strong>Golden Gate Casino</strong><br><br>
-  Originally Hotel Nevada (1906), this is the oldest hotel in Las Vegas.
-  It introduced amenities like telephones in every room and shrimp cocktail promotions that became legendary.
-  `
+  name:"Golden Gate Casino",
+  lat:36.1702,lng:-115.1441,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg",
+  info:"🏛️ The oldest hotel in Las Vegas, originally Hotel Nevada, opened in 1906."
 },
-
 {
-  name: "Circa & Legacy Club",
-  lat: 36.1708,
-  lng: -115.1433,
-  radius: 350,
-  triggered: false,
-  info: `
-  📺 <strong>Circa & The Sportsbook Era</strong><br><br>
-  Circa redefined downtown with the largest sportsbook in the world and a focus on sports culture.
-  The Legacy Club rooftop honors Vegas pioneers while offering one of the best views of the city’s evolution.
-  `
+  name:"Circa & Legacy Club",
+  lat:36.1708,lng:-115.1433,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg",
+  info:"📺 Circa features the world’s largest sportsbook and honors Vegas pioneers."
 },
-
 {
-  name: "Binion’s Horseshoe",
-  lat: 36.1701,
-  lng: -115.1436,
-  radius: 350,
-  triggered: false,
-  info: `
-  ♠️ <strong>Binion’s: Legends & Controversy</strong><br><br>
-  Benny Binion welcomed everyday gamblers, displayed $1 million in cash, and helped create the World Series of Poker.
-  The casino’s later decline mirrors the darker side of Vegas history — ambition, excess, and change.
-  `
+  name:"Binion’s Horseshoe",
+  lat:36.1701,lng:-115.1436,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg",
+  info:"♠️ Birthplace of the World Series of Poker."
 },
-
 {
-  name: "Golden Nugget",
-  lat: 36.1707,
-  lng: -115.1437,
-  radius: 350,
-  triggered: false,
-  info: `
-  🥇 <strong>Golden Nugget</strong><br><br>
-  Opened in 1946, the Golden Nugget houses the world’s largest gold nugget — the “Hand of Faith.”
-  It helped shift downtown toward luxury and remains one of Fremont’s most iconic properties.
-  `
+  name:"Golden Nugget",
+  lat:36.1707,lng:-115.1437,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg",
+  info:"🥇 Home of the Hand of Faith, the largest gold nugget on public display."
 },
-
 {
-  name: "Fremont & Four Queens",
-  lat: 36.1704,
-  lng: -115.1448,
-  radius: 350,
-  triggered: false,
-  info: `
-  🎲 <strong>Four Queens & Fremont Energy</strong><br><br>
-  Four Queens represents classic Fremont Street gambling — no resort fees, player-friendly, and unapologetically Vegas.
-  This area shows how Fremont balances old-school charm with modern nightlife.
-  `
+  name:"Four Queens",
+  lat:36.1704,lng:-115.1448,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg",
+  info:"🎲 A classic Fremont Street casino with no resort fees."
 },
-
 {
-  name: "The D & Sigma Derby",
-  lat: 36.1709,
-  lng: -115.1455,
-  radius: 350,
-  triggered: false,
-  info: `
-  🐎 <strong>The D & Mechanical Horse Racing</strong><br><br>
-  Sigma Derby is one of the last remaining mechanical horse racing games in the world.
-  Loud, chaotic, and nostalgic — it’s a living piece of casino history from the 1980s.
-  `
+  name:"The D & Sigma Derby",
+  lat:36.1709,lng:-115.1455,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg",
+  info:"🐎 One of the last mechanical horse racing games."
 },
-
 {
-  name: "Hammered Harry’s",
-  lat: 36.1714,
-  lng: -115.1463,
-  radius: 350,
-  triggered: false,
-  info: `
-  🍹 <strong>Hammered Harry’s — Tour Perk</strong><br><br>
-  Tour participants receive a <strong>free margarita</strong> and <strong>half-off appetizers</strong>.
-  A perfect stop to relax, recap the tour, and toast to Fremont Street.
-  `
+  name:"Hammered Harry’s",
+  lat:36.1714,lng:-115.1463,radius:350,
+  image:"https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg",
+  info:"🍹 Final stop — relax and enjoy Downtown Las Vegas."
 }
 ];
 
-let currentStopIndex = 0;
-let tourStarted = false;
+let index = 0;
+let map, marker;
 
 function startTour() {
-  tourStarted = true;
-  document.getElementById("content").innerHTML =
-    "Tour started. Walk normally — GPS active.";
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported.");
+    return;
+  }
+
+  document.getElementById("map").style.display = "block";
+
+  map = L.map('map').setView([36.1699, -115.1427], 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  marker = L.marker([0,0]).addTo(map);
 
   navigator.geolocation.watchPosition(
-    position => {
-      if (!tourStarted || currentStopIndex >= stops.length) return;
+    pos => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
 
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      const stop = stops[currentStopIndex];
+      marker.setLatLng([lat, lng]);
 
-      const dist = getDistance(lat, lng, stop.lat, stop.lng);
-      document.getElementById("distance").innerText =
-        `Distance to next stop: ${Math.round(dist)} meters`;
-
-      if (dist <= stop.radius) {
-        stop.triggered = true;
-        document.getElementById("content").innerHTML = stop.info;
-        currentStopIndex++;
+      if (index >= stops.length) {
+        document.getElementById("distance").innerText = "Tour complete.";
+        return;
       }
+
+      const s = stops[index];
+      const d = getDistance(lat, lng, s.lat, s.lng);
+
+      document.getElementById("distance").innerText =
+        `Distance to next stop: ${Math.round(d)} meters`;
+
+      if (d <= s.radius) showStop(index++);
     },
-    error => {
-      document.getElementById("content").innerText =
-        "Location access denied. Enable location permissions.";
+    err => {
+      alert("Please allow location access.");
     },
-    { enableHighAccuracy: true }
+    { enableHighAccuracy: true, maximumAge: 0 }
   );
 }
 
-function forceStart() {
-  tourStarted = true;
-  stops[0].triggered = true;
-  document.getElementById("content").innerHTML = stops[0].info;
-  currentStopIndex = 1;
+function showStop(i) {
+  const s = stops[i];
+  document.getElementById("content").innerHTML =
+    `<h3>${s.name}</h3>
+     <img src="${s.image}" style="width:100%;border-radius:8px;margin-top:6px;">
+     <p style="margin-top:8px;">${s.info}</p>`;
 }
 
-function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371000;
-  const toRad = x => x * Math.PI / 180;
-
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
-
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) *
-    Math.cos(toRad(lat2)) *
-    Math.sin(dLon / 2) ** 2;
-
-  return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+function getDistance(a,b,c,d){
+  const R=6371000,to=x=>x*Math.PI/180;
+  const A=Math.sin(to(c-a)/2)**2+
+    Math.cos(to(a))*Math.cos(to(c))*Math.sin(to(d-b)/2)**2;
+  return R*2*Math.atan2(Math.sqrt(A),Math.sqrt(1-A));
 }
 </script>
 
