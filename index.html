@@ -2,155 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vegas Walks</title>
+<title>Vegas Walks – Downtown Walking Tour</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  margin: 0;
+  padding: 16px;
+  background: #111;
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+p.subtitle {
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.stop {
+  background: #1c1c1c;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.stop button {
+  width: 100%;
+  background: #e10600;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.content {
+  display: none;
+  margin-top: 12px;
+}
+
+.content img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.content p {
+  margin-top: 8px;
+  line-height: 1.4;
+}
+</style>
 </head>
 
-<body style="font-family:system-ui;text-align:center;padding:16px;">
+<body>
 
 <h1>🎰 Vegas Walks</h1>
-<p>Downtown Las Vegas Walking Tour</p>
+<p class="subtitle">Downtown Las Vegas Walking Tour</p>
 
-<button onclick="startTour()" style="padding:14px 22px;font-size:16px;">
-  Start Walking Tour
-</button>
+<!-- STOP TEMPLATE -->
+<div class="stop">
+  <button onclick="toggle(this)">1️⃣ Sin City Hostel & Wedding Chapels</button>
+  <div class="content">
+    <p>
+      💍 Las Vegas became the Wedding Capital of the World after Nevada legalized
+      quick marriages in 1931. The area surrounding Sin City Hostel is packed with
+      historic wedding chapels that helped define Vegas romance.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg">
+  </div>
+</div>
 
-<div id="map" style="height:260px;margin:15px 0;display:none;"></div>
+<div class="stop">
+  <button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
+  <div class="content">
+    <p>
+      🏨 Opened in 1941, the El Cortez is one of the oldest operating casinos in Las Vegas.
+      It survived mob ties, modernization, and preservation battles.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg">
+  </div>
+</div>
 
-<div id="content"></div>
+<div class="stop">
+  <button onclick="toggle(this)">3️⃣ Fremont Street & Las Vegas Blvd</button>
+  <div class="content">
+    <p>
+      🌵 Fremont Street began as a dusty desert road and became the heart of early Las Vegas.
+      This intersection marked the birth of the city.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg">
+  </div>
+</div>
 
-<p id="distance" style="font-size:14px;color:#555;"></p>
+<div class="stop">
+  <button onclick="toggle(this)">4️⃣ Golden Gate Casino</button>
+  <div class="content">
+    <p>
+      🏛️ Opened in 1906 as Hotel Nevada, this is the oldest hotel and casino in Las Vegas history.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg">
+  </div>
+</div>
 
-<button id="manualBtn"
-  onclick="manualAdvance()"
-  style="display:none;padding:10px 18px;margin-top:10px;">
-  I’m Here – Continue Tour
-</button>
+<div class="stop">
+  <button onclick="toggle(this)">5️⃣ Circa Resort & Legacy Club</button>
+  <div class="content">
+    <p>
+      📺 Circa features the largest sportsbook in the world and celebrates Vegas history
+      from a modern perspective at the Legacy Club.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg">
+  </div>
+</div>
+
+<div class="stop">
+  <button onclick="toggle(this)">6️⃣ Binion’s Horseshoe</button>
+  <div class="content">
+    <p>
+      ♠️ Famous for the World Series of Poker, Binion’s history includes legendary wins,
+      mob stories, and controversial moments.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg">
+  </div>
+</div>
+
+<div class="stop">
+  <button onclick="toggle(this)">7️⃣ Golden Nugget</button>
+  <div class="content">
+    <p>
+      🥇 Home of the “Hand of Faith,” the largest gold nugget ever found with a metal detector.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg">
+  </div>
+</div>
+
+<div class="stop">
+  <button onclick="toggle(this)">8️⃣ Four Queens & Fremont</button>
+  <div class="content">
+    <p>
+      🎲 A classic Fremont Street casino representing mid-century Vegas charm.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg">
+  </div>
+</div>
+
+<div class="stop">
+  <button onclick="toggle(this)">9️⃣ The D & Sigma Derby</button>
+  <div class="content">
+    <p>
+      🐎 Sigma Derby is one of the last remaining mechanical horse racing games
+      in the world.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg">
+  </div>
+</div>
+
+<div class="stop">
+  <button onclick="toggle(this)">🔟 Hammered Harry’s</button>
+  <div class="content">
+    <p>
+      🍹 Final stop! Tour participants receive a free margarita and half off appetizers.
+      Cheers to Downtown Las Vegas!
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg">
+  </div>
+</div>
 
 <script>
-const stops = [
-{
-  name:"Sin City Hostel – Wedding Chapel District",
-  lat:36.15886,lng:-115.14939,radius:450,
-  image:"https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg",
-  info:"💍 Wedding Capital of the World. Nevada’s 1931 marriage laws made Las Vegas famous for instant weddings."
-},
-{
-  name:"El Cortez & Container Park",
-  lat:36.1706,lng:-115.1409,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg",
-  info:"🏨 El Cortez opened in 1941 and remains one of the oldest casinos in Las Vegas."
-},
-{
-  name:"Fremont Street & Las Vegas Blvd",
-  lat:36.1695,lng:-115.1401,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg",
-  info:"🌵 Fremont Street was once a dusty frontier road and is the birthplace of Las Vegas."
-},
-{
-  name:"Golden Gate Casino",
-  lat:36.1702,lng:-115.1441,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg",
-  info:"🏛️ The oldest hotel in Las Vegas, opened in 1906."
-},
-{
-  name:"Circa & Legacy Club",
-  lat:36.1708,lng:-115.1433,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg",
-  info:"📺 Circa features the world’s largest sportsbook."
-},
-{
-  name:"Binion’s Horseshoe",
-  lat:36.1701,lng:-115.1436,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg",
-  info:"♠️ Birthplace of the World Series of Poker."
-},
-{
-  name:"Golden Nugget",
-  lat:36.1707,lng:-115.1437,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg",
-  info:"🥇 Home of the Hand of Faith gold nugget."
-},
-{
-  name:"Four Queens",
-  lat:36.1704,lng:-115.1448,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg",
-  info:"🎲 Classic Fremont Street casino."
-},
-{
-  name:"The D & Sigma Derby",
-  lat:36.1709,lng:-115.1455,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg",
-  info:"🐎 One of the last mechanical horse racing games."
-},
-{
-  name:"Hammered Harry’s",
-  lat:36.1714,lng:-115.1463,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg",
-  info:"🍹 Final stop — enjoy Downtown Las Vegas."
-}
-];
-
-let index = 0;
-let map, marker;
-
-function startTour() {
-  document.getElementById("map").style.display = "block";
-
-  map = L.map('map').setView([36.1699, -115.1427], 15);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-  marker = L.marker([0,0]).addTo(map);
-
-  navigator.geolocation.watchPosition(pos => {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
-
-    marker.setLatLng([lat, lng]);
-
-    if (index >= stops.length) {
-      document.getElementById("distance").innerText = "Tour complete.";
-      document.getElementById("manualBtn").style.display = "none";
-      return;
-    }
-
-    const s = stops[index];
-    const d = getDistance(lat, lng, s.lat, s.lng);
-
-    document.getElementById("distance").innerText =
-      `Distance to next stop: ${Math.round(d)} meters`;
-
-    // Show manual button if reasonably close
-    document.getElementById("manualBtn").style.display =
-      d < 600 ? "inline-block" : "none";
-
-    if (d <= s.radius) advance();
-  }, () => {
-    alert("Please allow location access.");
-  }, { enableHighAccuracy: true, maximumAge: 0 });
-}
-
-function advance() {
-  const s = stops[index];
-  document.getElementById("content").innerHTML =
-    `<h3>${s.name}</h3>
-     <img src="${s.image}" style="width:100%;border-radius:8px;margin-top:6px;">
-     <p style="margin-top:8px;">${s.info}</p>`;
-  index++;
-  document.getElementById("manualBtn").style.display = "none";
-}
-
-function manualAdvance() {
-  advance();
-}
-
-function getDistance(a,b,c,d){
-  const R=6371000,to=x=>x*Math.PI/180;
-  const A=Math.sin(to(c-a)/2)**2+
-    Math.cos(to(a))*Math.cos(to(c))*Math.sin(to(d-b)/2)**2;
-  return R*2*Math.atan2(Math.sqrt(A),Math.sqrt(1-A));
+function toggle(btn) {
+  const content = btn.nextElementSibling;
+  content.style.display = content.style.display === "block" ? "none" : "block";
 }
 </script>
 
