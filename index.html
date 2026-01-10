@@ -41,6 +41,10 @@
   <p id="distance" style="font-size:14px;color:#555;"></p>
 
 <script>
+function forceStart() {
+  stops[0].triggered = true;
+  document.getElementById("status").innerHTML = stops[0].info;
+}
 const stops = [
   {
     name: "Sin City Hostel – Wedding Chapel District",
