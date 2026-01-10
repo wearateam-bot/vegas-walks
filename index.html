@@ -2,308 +2,108 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vegas Walks – Downtown Las Vegas Walking Tour</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Downtown Las Vegas Tours</title>
 <style>
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
-  margin: 0;
-  padding: 16px;
-  background: #0e0e0e;
-  color: #ffffff;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  body, html { height: 100%; width: 100%; overflow-x: hidden; }
+  .hero {
+    background: url('F147907D-232D-40FD-8056-8F45B4A98198.png') center/cover no-repeat;
+    height: 100vh;
+    position: relative;
+    color: white;
+    text-align: center;
+  }
+  .overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+  }
+  .content {
+    position: relative;
+    top: 30%;
+    transform: translateY(-20%);
+    padding: 0 20px;
+  }
+  h1 { font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 2px 8px #000; }
+  p { font-size: 1.25rem; margin-bottom: 20px; text-shadow: 1px 1px 6px #000; }
+  .btn { 
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    background: #ff5a00;
+    transition: .3s;
+  }
+  .btn:hover { background: #e04e00; }
+  .tour-details { margin-top: 30px; font-size: 1rem; }
+  .form-group { margin: 15px 0; }
+  select { padding: 8px; font-size: 1rem; width: 60px; }
 
-h1 {
-  text-align: center;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  text-align: center;
-  color: #ccc;
-  margin-bottom: 20px;
-}
-
-.stop {
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 14px;
-}
-
-.stop button {
-  width: 100%;
-  background: #e10600;
-  color: #fff;
-  border: none;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 10px;
-}
-
-.content {
-  display: none;
-  margin-top: 12px;
-  line-height: 1.5;
-}
-
-.content img {
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 10px;
-}
+  @media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    p { font-size: 1rem; }
+  }
 </style>
 </head>
-
 <body>
 
-<h1>🎰 Vegas Walks</h1>
-<p class="subtitle">Downtown Las Vegas Walking Tour</p>
+<div class="hero">
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Explore Downtown Las Vegas</h1>
+    <p>Choose your unforgettable tour experience below!</p>
 
-<!-- 1 -->
-<div class="stop">
-<button onclick="toggle(this)">1️⃣ Sin City Hostel & Wedding Chapel District</button>
-<div class="content">
-<p>
-<b>Era:</b> 1930s–Present<br>
-<b>Why this area matters:</b><br><br>
+    <!-- Tour Selection -->
+    <div class="tour-form">
+      <div class="form-group">
+        <label for="adults">Adults:</label>
+        <select id="adults">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="children">Children:</label>
+        <select id="children">
+          <option>0</option><option>1</option><option>2</option><option>3</option>
+        </select>
+      </div>
+    </div>
 
-Las Vegas became the <b>Wedding Capital of the World</b> in 1931 when Nevada passed
-some of the loosest marriage laws in the United States — no blood tests, no waiting period.
-During the Great Depression, love was one of the few things people could still afford.
-<br><br>
-This neighborhood filled with fast, neon-lit wedding chapels catering to soldiers,
-celebrities, and couples escaping strict hometown laws.
-<br><br>
-<b>Fun & famous weddings:</b><br>
-• Elvis Presley (twice)<br>
-• Frank Sinatra<br>
-• Britney Spears (55-hour marriage)<br><br>
+    <!-- Buttons -->
+    <a class="btn" id="dayBtn">Daytime Tour — Starts at 2 PM</a>
+    <a class="btn" id="nightBtn">Nighttime Tour — Starts at 8 PM</a>
 
-<b>Pop culture:</b><br>
-Vegas weddings appear in hundreds of films, including <i>The Hangover</i> and
-<i>Fear and Loathing in Las Vegas</i>.
-<br><br>
-Vegas didn’t just sell gambling — it sold <b>instant reinvention</b>.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg">
-</div>
-</div>
-
-<!-- 2 -->
-<div class="stop">
-<button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
-<div class="content">
-<p>
-<b>Opened:</b> 1941<br>
-<b>Original owner:</b> J. Kell Houssels<br><br>
-
-The El Cortez is one of the <b>oldest continuously operating casinos</b> in Las Vegas.
-Behind the scenes, it was quietly tied to early mob power brokers including
-<b>Bugsy Siegel</b>, <b>Meyer Lansky</b>, and <b>Gus Greenbaum</b>.
-<br><br>
-Unlike flashy Strip casinos, El Cortez stayed intentionally low-profile — a favorite
-of serious gamblers and insiders.
-<br><br>
-<b>Mob history:</b><br>
-• Profits helped finance early Strip development<br>
-• Mobsters preferred it because it avoided attention
-<br><br>
-<b>Container Park</b> represents downtown’s rebirth — art, startups, and community
-replacing decades of decline.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg">
-</div>
-</div>
-
-<!-- 3 -->
-<div class="stop">
-<button onclick="toggle(this)">3️⃣ Fremont Street & Las Vegas Boulevard</button>
-<div class="content">
-<p>
-<b>Founded:</b> 1905 (Las Vegas settlement)<br><br>
-
-This intersection is the <b>birthplace of Las Vegas</b>. Fremont Street was originally
-a railroad stop in the Mojave Desert.
-<br><br>
-<b>Historic firsts:</b><br>
-• First paved street<br>
-• First neon signs (“Glitter Gulch”)<br>
-• First legalized gambling district (1931)
-<br><br>
-<b>Film & media:</b><br>
-• <i>Viva Las Vegas</i><br>
-• <i>Casino</i><br>
-• Countless documentaries
-<br><br>
-Every mega-resort on the Strip exists because of what started right here.
-</p>
-<img src="https://photos.app.goo.gl/MehEEH5gmRH5segx7"
-  alt="Fremont Street Las Vegas early 1900s"
-  style="width:100%; border-radius:10px; margin:12px 0;"
->
->
-</div>
-</div>
-
-<!-- 4 -->
-<div class="stop">
-<button onclick="toggle(this)">4️⃣ Golden Gate Casino</button>
-<div class="content">
-<p>
-<b>Opened:</b> 1906 (Hotel Nevada)<br><br>
-
-The Golden Gate is the <b>oldest hotel in Las Vegas</b>.
-It was the first to feature electric lighting, telephones in rooms, and hot water —
-luxury in the desert.
-<br><br>
-<b>Fun facts:</b><br>
-• First shrimp cocktail sold for 50¢ (over 60 million sold)<br>
-• Predates Hoover Dam and the Strip
-<br><br>
-<b>Pop culture:</b><br>
-Frequently referenced in early Vegas films and history books.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg">
-</div>
-</div>
-
-<!-- 5 -->
-<div class="stop">
-<button onclick="toggle(this)">5️⃣ Circa Resort & Legacy Club</button>
-<div class="content">
-<p>
-<b>Opened:</b> 2020<br>
-<b>Owner:</b> Derek Stevens<br><br>
-
-Circa is a modern tribute to old-school Vegas — adults-only, high energy, and built
-for sports fans.
-<br><br>
-<b>Sports history:</b><br>
-• Largest sportsbook in the world<br>
-• Stadium-style seating
-<br><br>
-<b>Legacy Club:</b><br>
-A rooftop museum honoring Vegas pioneers with vintage logos and memorabilia.
-<br><br>
-Circa famously opened during the COVID shutdown — and thrived.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg">
-</div>
-</div>
-
-<!-- 6 -->
-<div class="stop">
-<button onclick="toggle(this)">6️⃣ Binion’s Horseshoe</button>
-<div class="content">
-<p>
-<b>Opened:</b> 1951<br>
-<b>Founder:</b> Benny Binion<br><br>
-
-Benny Binion was a Texas bootlegger turned casino legend who believed gamblers should
-be treated like royalty.
-<br><br>
-<b>Historic impact:</b><br>
-• Birthplace of the World Series of Poker<br>
-• Displayed $1 million in cash on the casino floor
-<br><br>
-<b>Dark side:</b><br>
-Tax evasion charges, mob associations, and family scandals nearly destroyed the casino.
-<br><br>
-Binion’s turned gambling into competitive sport.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg">
-</div>
-</div>
-
-<!-- 7 -->
-<div class="stop">
-<button onclick="toggle(this)">7️⃣ Golden Nugget</button>
-<div class="content">
-<p>
-<b>Opened:</b> 1946<br>
-<b>Founder:</b> Guy McAfee (former LAPD vice officer)<br><br>
-
-McAfee helped shape modern Vegas nightlife after relocating gambling operations
-from Los Angeles.
-<br><br>
-<b>Famous attraction:</b><br>
-The <b>Hand of Faith</b> — the largest gold nugget ever found using a metal detector.
-<br><br>
-<b>Entertainment history:</b><br>
-Frank Sinatra, Dean Martin, and Jerry Lewis all performed here.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg">
-</div>
-</div>
-
-<!-- 8 -->
-<div class="stop">
-<button onclick="toggle(this)">8️⃣ Four Queens</button>
-<div class="content">
-<p>
-<b>Opened:</b> 1966<br><br>
-
-Four Queens is one of the most authentic remaining Fremont casinos.
-It has never rebranded or removed its original tower.
-<br><br>
-<b>Why locals love it:</b><br>
-• Straightforward gambling<br>
-• Friendly dealers<br>
-• No gimmicks
-<br><br>
-Represents mid-century Vegas before mega-resorts.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg">
-</div>
-</div>
-
-<!-- 9 -->
-<div class="stop">
-<button onclick="toggle(this)">9️⃣ The D & Sigma Derby</button>
-<div class="content">
-<p>
-<b>Era:</b> 1980s game preserved today<br><br>
-
-Sigma Derby is one of the <b>last mechanical horse-racing games in the world</b>.
-Players physically insert coins while cheering together.
-<br><br>
-<b>Why it matters:</b><br>
-• Social gambling<br>
-• No screens or algorithms<br>
-• Loud, chaotic, human
-<br><br>
-Preserved intentionally to keep old Vegas alive.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg">
-</div>
-</div>
-
-<!-- 10 -->
-<div class="stop">
-<button onclick="toggle(this)">🔟 Hammered Harry’s</button>
-<div class="content">
-<p>
-<b>Final stop:</b><br><br>
-
-Guests receive a <b>free margarita</b> and <b>half-off appetizers</b>.
-<br><br>
-Ending with a drink creates stronger memories, better reviews,
-and happier guests — a classic hospitality technique.
-<br><br>
-Thank you for walking Downtown Las Vegas.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg">
-</div>
+    <div class="tour-details">
+      <p><strong>Daytime Tour:</strong> Appetizers, free drinks & cocktails, free slot play, souvenirs, chronological history from 1900s to today. Meet @ Plaza Hotel, 2 PM.</p>
+      <p><strong>Nighttime Tour:</strong> Pizza, beer, pub crawl, rooftop views, nightlife vibe. Meet @ El Cortez, 8 PM.</p>
+      <p>Pricing starts at approx. $35–45 per adult (based on similar Fremont Street tours)  [oai_citation:1‡Las Vegas Pop Culture Tours](https://lasvegaspopculturetours.com/?utm_source=chatgpt.com).</p>
+    </div>
+  </div>
 </div>
 
 <script>
-function toggle(btn) {
-  const content = btn.nextElementSibling;
-  content.style.display =
-    content.style.display === "block" ? "none" : "block";
-}
+  // Get values
+  function getParams() {
+    const adults = document.getElementById('adults').value;
+    const children = document.getElementById('children').value;
+    return `?adults=${adults}&children=${children}`;
+  }
+
+  document.getElementById('dayBtn').onclick = function() {
+    const params = getParams();
+    window.location.href = 'day-tour-payment.html' + params;
+  };
+
+  document.getElementById('nightBtn').onclick = function() {
+    const params = getParams();
+    window.location.href = 'night-tour-payment.html' + params;
+  };
 </script>
 
 </body>
