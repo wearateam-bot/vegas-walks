@@ -16,62 +16,111 @@
 
   <p id="status" style="margin-top:20px;"></p>
 
-  <script>
-  const stops = [
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vegas Walks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body style="font-family: system-ui; text-align: center; padding: 30px;">
+
+  <h1>🎰 Vegas Walks</h1>
+  <p>GPS Walking Tour — Downtown Las Vegas</p>
+
+  <button onclick="startTour()" style="padding:14px 22px;font-size:16px;">
+    Start Walking Tour
+  </button>
+
+  <p id="status" style="margin-top:20px;font-weight:600;"></p>
+  <p id="distance" style="font-size:14px;color:#555;"></p>
+
+<script>
+const stops = [
+  {
+    name: "Sin City Hostel – Wedding Chapel District",
+    lat: 36.15886,
+    lng: -115.14939,
+    radius: 120, // meters (intentionally larger for iPhone GPS)
+    triggered: false,
+    info: `
+      💍 <strong>Welcome to the Wedding Capital of the World</strong><br><br>
+
+      You are standing in the heart of Las Vegas’ historic wedding chapel corridor.<br><br>
+
+      In 1931, Nevada changed marriage laws — eliminating waiting periods and residency requirements.
+      Almost overnight, Las Vegas became the easiest place in America to get married.<br><br>
+
+      Wedding chapels rapidly appeared along this stretch of Las Vegas Boulevard, offering quick,
+      affordable ceremonies — many famous for neon signs, Elvis officiants, and drive-thru weddings.<br><br>
+
+      Nearby chapels include:<br>
+      • A Little White Wedding Chapel<br>
+      • Chapel of the Bells<br>
+      • Viva Las Vegas Wedding Chapel<br>
+      • Graceland Wedding Chapel<br><br>
+
+      Thousands of couples — including celebrities — have married within walking distance of where you are now.
+    `
+  }
+];
+
+let watchId = null;
+
+function startTour() {
+  document.getElementById("status").innerText =
+    "Tour started. Walk normally — GPS active…";
+
+  watchId = navigator.geolocation.watchPosition(
+    position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      stops.forEach(stop => {
+        if (stop.triggered) return;
+
+        const dist = getDistance(lat, lng, stop.lat, stop.lng);
+        document.getElementById("distance").innerText =
+          `Distance to stop: ${Math.round(dist)} meters`;
+
+        if (dist <= stop.radius) {
+          stop.triggered = true;
+          document.getElementById("status").innerHTML = stop.info;
+        }
+      });
+    },
+    error => {
+      document.getElementById("status").innerText =
+        "Location access denied. Please enable location permissions.";
+    },
     {
-      name: "Golden Nugget",
-      lat: 36.1707,
-      lng: -115.1437,
-      radius: 60,
-      info: `
-        🎰 <strong>Golden Nugget</strong><br><br>
-        Opened in 1946, this is the oldest casino still operating in Las Vegas.<br><br>
-        ⭐ Fun fact: The Nugget was one of the first casinos to attract high-end gamblers downtown.
-      `
+      enableHighAccuracy: true,
+      maximumAge: 0,
+      timeout: 10000
     }
-  ];
+  );
+}
 
-  function startTour() {
-    document.getElementById("status").innerText =
-      "Tour started. Walk toward Fremont Street…";
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = x => x * Math.PI / 180;
 
-    navigator.geolocation.watchPosition(
-      position => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
 
-        stops.forEach(stop => {
-          const distance = getDistance(lat, lng, stop.lat, stop.lng);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) *
+    Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) ** 2;
 
-          if (distance < stop.radius) {
-            document.getElementById("status").innerHTML = stop.info;
-          }
-        });
-      },
-      error => {
-        document.getElementById("status").innerText =
-          "Location permission denied.";
-      },
-      { enableHighAccuracy: true }
-    );
-  }
-
-  function getDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371000;
-    const toRad = x => x * Math.PI / 180;
-
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(lat1)) *
-      Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) ** 2;
-
-    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-  }
+  return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+}
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
