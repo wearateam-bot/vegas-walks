@@ -1,144 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Vegas Walks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<title>Vegas Walks GPS Test</title>
 </head>
 
-<body style="font-family:system-ui;text-align:center;padding:16px;">
+<body style="font-family:system-ui;text-align:center;padding:20px;">
 
-<h1>🎰 Vegas Walks</h1>
-<p>Downtown Las Vegas Walking Tour</p>
+<h2>Vegas Walks – GPS TEST</h2>
 
-<button onclick="startTour()" style="padding:14px 22px;font-size:16px;">
-  Start Walking Tour
-</button>
+<button onclick="start()">Start GPS</button>
 
-<div id="map" style="height:260px;margin:15px 0;display:none;"></div>
-
-<div id="content"></div>
-
-<p id="distance" style="font-size:14px;color:#555;"></p>
+<p id="status">Waiting…</p>
 
 <script>
-const stops = [
-{
-  name:"Sin City Hostel – Wedding Chapel District",
-  lat:36.15886,lng:-115.14939,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg",
-  info:"💍 Wedding Capital of the World. Nevada’s 1931 marriage laws made Las Vegas famous for instant weddings."
-},
-{
-  name:"El Cortez & Container Park",
-  lat:36.1706,lng:-115.1409,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg",
-  info:"🏨 El Cortez opened in 1941 and remains one of the oldest casinos in Las Vegas."
-},
-{
-  name:"Fremont Street & Las Vegas Blvd",
-  lat:36.1695,lng:-115.1401,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg",
-  info:"🌵 Fremont Street was once a dusty frontier road and is the birthplace of Las Vegas."
-},
-{
-  name:"Golden Gate Casino",
-  lat:36.1702,lng:-115.1441,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg",
-  info:"🏛️ The oldest hotel in Las Vegas, originally Hotel Nevada, opened in 1906."
-},
-{
-  name:"Circa & Legacy Club",
-  lat:36.1708,lng:-115.1433,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg",
-  info:"📺 Circa features the world’s largest sportsbook and honors Vegas pioneers."
-},
-{
-  name:"Binion’s Horseshoe",
-  lat:36.1701,lng:-115.1436,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg",
-  info:"♠️ Birthplace of the World Series of Poker."
-},
-{
-  name:"Golden Nugget",
-  lat:36.1707,lng:-115.1437,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg",
-  info:"🥇 Home of the Hand of Faith, the largest gold nugget on public display."
-},
-{
-  name:"Four Queens",
-  lat:36.1704,lng:-115.1448,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg",
-  info:"🎲 A classic Fremont Street casino with no resort fees."
-},
-{
-  name:"The D & Sigma Derby",
-  lat:36.1709,lng:-115.1455,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg",
-  info:"🐎 One of the last mechanical horse racing games."
-},
-{
-  name:"Hammered Harry’s",
-  lat:36.1714,lng:-115.1463,radius:350,
-  image:"https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg",
-  info:"🍹 Final stop — relax and enjoy Downtown Las Vegas."
-}
-];
+const stopLat = 36.15886;
+const stopLng = -115.14939;
 
-let index = 0;
-let map, marker;
-
-function startTour() {
+function start() {
   if (!navigator.geolocation) {
-    alert("Geolocation not supported.");
+    document.getElementById("status").innerText = "Geolocation NOT supported.";
     return;
   }
-
-  document.getElementById("map").style.display = "block";
-
-  map = L.map('map').setView([36.1699, -115.1427], 15);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-  marker = L.marker([0,0]).addTo(map);
 
   navigator.geolocation.watchPosition(
     pos => {
       const lat = pos.coords.latitude;
       const lng = pos.coords.longitude;
 
-      marker.setLatLng([lat, lng]);
+      const d = distance(lat, lng, stopLat, stopLng);
 
-      if (index >= stops.length) {
-        document.getElementById("distance").innerText = "Tour complete.";
-        return;
-      }
-
-      const s = stops[index];
-      const d = getDistance(lat, lng, s.lat, s.lng);
-
-      document.getElementById("distance").innerText =
-        `Distance to next stop: ${Math.round(d)} meters`;
-
-      if (d <= s.radius) showStop(index++);
+      document.getElementById("status").innerHTML =
+        `Your location:<br>
+        Lat: ${lat}<br>
+        Lng: ${lng}<br><br>
+        Distance to Sin City Hostel:<br>
+        <b>${Math.round(d)} meters</b>`;
     },
     err => {
-      alert("Please allow location access.");
+      document.getElementById("status").innerText =
+        "Location error: " + err.message;
     },
     { enableHighAccuracy: true, maximumAge: 0 }
   );
 }
 
-function showStop(i) {
-  const s = stops[i];
-  document.getElementById("content").innerHTML =
-    `<h3>${s.name}</h3>
-     <img src="${s.image}" style="width:100%;border-radius:8px;margin-top:6px;">
-     <p style="margin-top:8px;">${s.info}</p>`;
-}
-
-function getDistance(a,b,c,d){
+function distance(a,b,c,d){
   const R=6371000,to=x=>x*Math.PI/180;
   const A=Math.sin(to(c-a)/2)**2+
     Math.cos(to(a))*Math.cos(to(c))*Math.sin(to(d-b)/2)**2;
