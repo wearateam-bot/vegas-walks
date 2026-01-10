@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vegas Walks – Downtown Walking Tour</title>
+<title>Vegas Walks – Downtown Las Vegas Walking Tour</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -10,24 +10,24 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont;
   margin: 0;
   padding: 16px;
-  background: #111;
-  color: #fff;
+  background: #0f0f0f;
+  color: #ffffff;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-p.subtitle {
+.subtitle {
   text-align: center;
   color: #ccc;
   margin-bottom: 20px;
 }
 
 .stop {
-  background: #1c1c1c;
-  border-radius: 10px;
+  background: #1b1b1b;
+  border-radius: 12px;
   padding: 14px;
   margin-bottom: 14px;
 }
@@ -35,27 +35,23 @@ p.subtitle {
 .stop button {
   width: 100%;
   background: #e10600;
-  color: white;
+  color: #fff;
   border: none;
   padding: 14px;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .content {
   display: none;
   margin-top: 12px;
+  line-height: 1.45;
 }
 
 .content img {
   width: 100%;
-  border-radius: 8px;
-  margin-top: 8px;
-}
-
-.content p {
-  margin-top: 8px;
-  line-height: 1.4;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 </style>
 </head>
@@ -65,119 +61,183 @@ p.subtitle {
 <h1>🎰 Vegas Walks</h1>
 <p class="subtitle">Downtown Las Vegas Walking Tour</p>
 
-<!-- STOP TEMPLATE -->
+<!-- STOP 1 -->
 <div class="stop">
-  <button onclick="toggle(this)">1️⃣ Sin City Hostel & Wedding Chapels</button>
-  <div class="content">
-    <p>
-      💍 Las Vegas became the Wedding Capital of the World after Nevada legalized
-      quick marriages in 1931. The area surrounding Sin City Hostel is packed with
-      historic wedding chapels that helped define Vegas romance.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg">
-  </div>
+<button onclick="toggle(this)">1️⃣ Sin City Hostel & Wedding Chapels</button>
+<div class="content">
+<p>
+Las Vegas became the <b>Wedding Capital of the World</b> in 1931 when Nevada legalized
+fast, no-wait marriages during the Great Depression. While other states restricted
+marriage laws, Vegas made romance quick, legal, and affordable.
+<br><br>
+This neighborhood was once packed with neon wedding chapels operating 24 hours a day.
+Soldiers, celebrities, and couples escaping strict hometown rules all came here.
+<br><br>
+<b>Fun facts:</b><br>
+• Over 5 million weddings have taken place in Las Vegas<br>
+• Elvis weddings rose in popularity in the 1970s<br>
+• Frank Sinatra, Bruce Willis, and Britney Spears all married in Vegas
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg">
+</div>
 </div>
 
+<!-- STOP 2 -->
 <div class="stop">
-  <button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
-  <div class="content">
-    <p>
-      🏨 Opened in 1941, the El Cortez is one of the oldest operating casinos in Las Vegas.
-      It survived mob ties, modernization, and preservation battles.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg">
-  </div>
+<button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
+<div class="content">
+<p>
+Opened in <b>1941</b>, the El Cortez is one of the oldest operating casinos in Las Vegas.
+It quietly passed through mob ownership including associates of <b>Bugsy Siegel</b>,
+<b>Meyer Lansky</b>, and <b>Gus Greenbaum</b>.
+<br><br>
+Unlike flashy Strip resorts, El Cortez catered to locals and serious gamblers.
+Mobsters liked it because it stayed out of the spotlight.
+<br><br>
+<b>Container Park</b> represents modern downtown revival — built from shipping
+containers and designed to attract artists, families, and entrepreneurs.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg">
+</div>
 </div>
 
+<!-- STOP 3 -->
 <div class="stop">
-  <button onclick="toggle(this)">3️⃣ Fremont Street & Las Vegas Blvd</button>
-  <div class="content">
-    <p>
-      🌵 Fremont Street began as a dusty desert road and became the heart of early Las Vegas.
-      This intersection marked the birth of the city.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg">
-  </div>
+<button onclick="toggle(this)">3️⃣ Fremont Street & Las Vegas Blvd</button>
+<div class="content">
+<p>
+This is the <b>birthplace of Las Vegas</b>. Fremont Street began as a dusty railroad stop
+in the early 1900s. Gambling was legalized here in <b>1931</b>, years before the Strip.
+<br><br>
+<b>Historic firsts:</b><br>
+• First paved street in Las Vegas<br>
+• First neon casino signs<br>
+• First gambling district
+<br><br>
+Ask yourself: does this look anything like the desert town it once was?
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg">
+</div>
 </div>
 
+<!-- STOP 4 -->
 <div class="stop">
-  <button onclick="toggle(this)">4️⃣ Golden Gate Casino</button>
-  <div class="content">
-    <p>
-      🏛️ Opened in 1906 as Hotel Nevada, this is the oldest hotel and casino in Las Vegas history.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg">
-  </div>
+<button onclick="toggle(this)">4️⃣ Golden Gate Casino</button>
+<div class="content">
+<p>
+Opened in <b>1906</b> as Hotel Nevada, the Golden Gate is the <b>oldest hotel in Las Vegas</b>.
+It was the first to offer electric lights, phones in every room, and luxury amenities.
+<br><br>
+<b>Fun facts:</b><br>
+• First shrimp cocktail sold for 50¢ (millions sold)<br>
+• Predates the Strip, Hoover Dam, and legalized gambling
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg">
+</div>
 </div>
 
+<!-- STOP 5 -->
 <div class="stop">
-  <button onclick="toggle(this)">5️⃣ Circa Resort & Legacy Club</button>
-  <div class="content">
-    <p>
-      📺 Circa features the largest sportsbook in the world and celebrates Vegas history
-      from a modern perspective at the Legacy Club.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg">
-  </div>
+<button onclick="toggle(this)">5️⃣ Circa Resort & Legacy Club</button>
+<div class="content">
+<p>
+Opened in <b>2020</b>, Circa is an adults-only resort built by <b>Derek Stevens</b>.
+It features the <b>largest sportsbook in the world</b> with stadium-style seating.
+<br><br>
+The Legacy Club honors Vegas pioneers with vintage logos, memorabilia,
+and rooftop views of downtown.
+<br><br>
+Circa famously opened during COVID — and thrived.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg">
+</div>
 </div>
 
+<!-- STOP 6 -->
 <div class="stop">
-  <button onclick="toggle(this)">6️⃣ Binion’s Horseshoe</button>
-  <div class="content">
-    <p>
-      ♠️ Famous for the World Series of Poker, Binion’s history includes legendary wins,
-      mob stories, and controversial moments.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg">
-  </div>
+<button onclick="toggle(this)">6️⃣ Binion’s Horseshoe</button>
+<div class="content">
+<p>
+Founded by <b>Benny Binion</b>, a Texas bootlegger turned casino legend.
+He believed gamblers should be treated like royalty.
+<br><br>
+<b>Historic moments:</b><br>
+• Birthplace of the World Series of Poker<br>
+• Displayed $1 million in cash on the casino floor
+<br><br>
+Later years included tax evasion, family scandals, and near collapse —
+making Binion’s one of Vegas’ most dramatic stories.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg">
+</div>
 </div>
 
+<!-- STOP 7 -->
 <div class="stop">
-  <button onclick="toggle(this)">7️⃣ Golden Nugget</button>
-  <div class="content">
-    <p>
-      🥇 Home of the “Hand of Faith,” the largest gold nugget ever found with a metal detector.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg">
-  </div>
+<button onclick="toggle(this)">7️⃣ Golden Nugget</button>
+<div class="content">
+<p>
+Opened in <b>1946</b> by Guy McAfee, a former LA vice cop who helped shape Vegas nightlife.
+<br><br>
+Home of the <b>Hand of Faith</b>, the largest gold nugget ever found with a metal detector,
+weighing over 61 pounds.
+<br><br>
+Golden Nugget hosted legends like Frank Sinatra, Dean Martin, and Jerry Lewis.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg">
+</div>
 </div>
 
+<!-- STOP 8 -->
 <div class="stop">
-  <button onclick="toggle(this)">8️⃣ Four Queens & Fremont</button>
-  <div class="content">
-    <p>
-      🎲 A classic Fremont Street casino representing mid-century Vegas charm.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg">
-  </div>
+<button onclick="toggle(this)">8️⃣ Four Queens & Fremont</button>
+<div class="content">
+<p>
+Opened in <b>1966</b>, Four Queens represents classic mid-century Vegas.
+It has never removed a hotel tower or rebranded.
+<br><br>
+Known for friendly dealers, locals play, and authentic Fremont Street energy.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg">
+</div>
 </div>
 
+<!-- STOP 9 -->
 <div class="stop">
-  <button onclick="toggle(this)">9️⃣ The D & Sigma Derby</button>
-  <div class="content">
-    <p>
-      🐎 Sigma Derby is one of the last remaining mechanical horse racing games
-      in the world.
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg">
-  </div>
+<button onclick="toggle(this)">9️⃣ The D & Sigma Derby</button>
+<div class="content">
+<p>
+Sigma Derby is one of the <b>last mechanical horse racing games in the world</b>.
+It’s loud, physical, social, and chaotic — everything modern gambling isn’t.
+<br><br>
+Preserved intentionally to keep old-school Vegas alive.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg">
+</div>
 </div>
 
+<!-- STOP 10 -->
 <div class="stop">
-  <button onclick="toggle(this)">🔟 Hammered Harry’s</button>
-  <div class="content">
-    <p>
-      🍹 Final stop! Tour participants receive a free margarita and half off appetizers.
-      Cheers to Downtown Las Vegas!
-    </p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg">
-  </div>
+<button onclick="toggle(this)">🔟 Hammered Harry’s</button>
+<div class="content">
+<p>
+Final stop and reward.
+<br><br>
+Tour participants receive a <b>free margarita</b> and
+<b>half-off appetizers</b>.
+<br><br>
+Ending with a drink increases memory, tips, reviews, and word-of-mouth —
+and that’s not an accident.
+</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg">
+</div>
 </div>
 
 <script>
 function toggle(btn) {
   const content = btn.nextElementSibling;
-  content.style.display = content.style.display === "block" ? "none" : "block";
+  content.style.display =
+    content.style.display === "block" ? "none" : "block";
 }
 </script>
 
