@@ -5,141 +5,150 @@
 <title>Vegas Walks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 </head>
 
-<body style="font-family:system-ui;text-align:center;padding:20px;">
+<body style="font-family: system-ui; text-align:center;padding:20px;">
 
 <h1>🎰 Vegas Walks</h1>
 
 <div id="lock">
-  <p>This walking tour unlocks at the starting point.</p>
+  <p>This tour unlocks via QR code.</p>
   <button onclick="unlockTour()">Unlock Tour</button>
 </div>
 
 <div id="tour" style="display:none;">
 
-<button onclick="startTour()" style="padding:12px 20px;">
-  Start Walking Tour
-</button>
+<button onclick="startTour()" style="padding:12px 20px;">Start Tour</button>
 
-<div id="map" style="height:260px;margin:15px 0;"></div>
+<div id="map" style="height:250px;margin:15px 0;"></div>
 
 <div id="content"></div>
 
-<p id="distance" style="font-size:13px;color:#666;margin-top:10px;"></p>
+<audio id="audio" controls style="margin-top:10px;width:100%;"></audio>
+
+<p id="distance" style="font-size:13px;color:#666;"></p>
+
+<div id="testPanel" style="display:none;">
+  <hr>
+  <h3>🧪 Test Stops</h3>
+  <div id="testButtons"></div>
+</div>
 
 </div>
 
 <script>
+const isTestMode = window.location.search.includes("test=1");
+
 const stops = [
 {
-  name:"Sin City Hostel – Wedding Chapel District",
+  name:"Sin City Hostel",
   lat:36.15886,lng:-115.14939,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/5/54/Las_Vegas_wedding_chapel_1950s.jpg",
-  info:"💍 <b>Wedding Capital of the World</b><br><br>Nevada’s 1931 marriage laws made Las Vegas the fastest place in America to get married. Chapels clustered around Fremont Street offering quick ceremonies, neon signs, and unforgettable memories."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"💍 <b>Wedding Capital of the World</b><br>Vegas became famous for instant marriages after 1931 law changes."
 },
 {
   name:"El Cortez & Container Park",
   lat:36.1706,lng:-115.1409,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/3/39/El_Cortez_Hotel_1940s.jpg",
-  info:"🏨 <b>El Cortez & Downtown Revival</b><br><br>Opened in 1941, El Cortez is one of the oldest casinos in Las Vegas. Once tied to organized crime, it now represents the rebirth of downtown."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🏨 <b>El Cortez</b><br>One of Vegas’ oldest casinos and a symbol of downtown revival."
 },
 {
-  name:"Fremont Street & Las Vegas Boulevard",
+  name:"Fremont & Las Vegas Blvd",
   lat:36.1695,lng:-115.1401,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/7/7c/Fremont_Street_1930s.jpg",
-  info:"🌵 <b>From Desert Road to Neon Icon</b><br><br>Fremont Street was once a dusty frontier road. Today it’s the historic heart of Las Vegas and the birthplace of its legendary neon culture."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🌵 <b>From desert road to neon icon</b><br>Fremont was the original heart of Las Vegas."
 },
 {
-  name:"Golden Gate Casino",
+  name:"Golden Gate",
   lat:36.1702,lng:-115.1441,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/9/9e/Golden_Gate_Hotel_1906.jpg",
-  info:"🏛️ <b>Golden Gate Casino</b><br><br>Originally Hotel Nevada in 1906, this is the oldest hotel in Las Vegas and a pioneer of modern casino hospitality."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🏛️ <b>Golden Gate</b><br>The oldest hotel in Las Vegas."
 },
 {
   name:"Circa & Legacy Club",
   lat:36.1708,lng:-115.1433,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg",
-  info:"📺 <b>Circa & Legacy Club</b><br><br>Circa features the world’s largest sportsbook. The Legacy Club honors the visionaries who shaped Las Vegas into a global destination."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"📺 <b>Circa</b><br>The world’s largest sportsbook and rooftop history tribute."
 },
 {
-  name:"Binion’s Horseshoe",
+  name:"Binion’s",
   lat:36.1701,lng:-115.1436,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg",
-  info:"♠️ <b>Binion’s Horseshoe</b><br><br>Birthplace of the World Series of Poker. Famous for high-stakes gambling, innovation, and controversy."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"♠️ <b>Binion’s</b><br>Birthplace of the World Series of Poker."
 },
 {
   name:"Golden Nugget",
   lat:36.1707,lng:-115.1437,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg",
-  info:"🥇 <b>Golden Nugget</b><br><br>Opened in 1946 and home to the Hand of Faith — the largest gold nugget ever found by a metal detector."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🥇 <b>Golden Nugget</b><br>Home of the Hand of Faith gold nugget."
 },
 {
-  name:"Four Queens & Fremont Core",
+  name:"Four Queens",
   lat:36.1704,lng:-115.1448,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg",
-  info:"🎲 <b>Four Queens</b><br><br>A classic Fremont Street casino known for old-school Vegas charm and no resort fees."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🎲 <b>Four Queens</b><br>Classic Fremont Street gambling."
 },
 {
   name:"The D & Sigma Derby",
   lat:36.1709,lng:-115.1455,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg",
-  info:"🐎 <b>Sigma Derby</b><br><br>One of the last mechanical horse-racing games in existence — loud, chaotic, and beloved by locals."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🐎 <b>Sigma Derby</b><br>One of the last mechanical horse racing games."
 },
 {
   name:"Hammered Harry’s",
   lat:36.1714,lng:-115.1463,radius:350,
   image:"https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg",
-  info:"🍹 <b>Hammered Harry’s</b><br><br>The final stop. A place to relax, celebrate the walk, and enjoy Downtown Las Vegas nightlife."
+  audio:"https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Short_Silence.ogg/Short_Silence.ogg.mp3",
+  info:"🍹 <b>Hammered Harry’s</b><br>Free margarita & half-off apps for tour guests."
 }
 ];
 
-let index = 0;
-let map, marker;
+let index=0,map,marker;
 
-function unlockTour() {
-  document.getElementById("lock").style.display = "none";
-  document.getElementById("tour").style.display = "block";
+function unlockTour(){
+  document.getElementById("lock").style.display="none";
+  document.getElementById("tour").style.display="block";
+  initMap();
+  if(isTestMode) document.getElementById("testPanel").style.display="block";
+}
 
-  map = L.map('map').setView([36.1699, -115.1427], 15);
+function initMap(){
+  map=L.map('map').setView([36.1699,-115.1427],15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-  marker = L.marker([0,0]).addTo(map);
+  marker=L.marker([0,0]).addTo(map);
 }
 
-function startTour() {
-  navigator.geolocation.watchPosition(pos => {
-    marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);
-
-    if (index >= stops.length) {
-      document.getElementById("distance").innerText = "Tour complete.";
-      return;
-    }
-
-    const s = stops[index];
-    const d = getDistance(
-      pos.coords.latitude,
-      pos.coords.longitude,
-      s.lat,
-      s.lng
-    );
-
-    document.getElementById("distance").innerText =
-      `Distance to next stop: ${Math.round(d)} meters`;
-
-    if (d <= s.radius) showStop(index++);
-  }, () => {
-    alert("Location access is required for this tour.");
-  }, { enableHighAccuracy: true });
+function startTour(){
+  navigator.geolocation.watchPosition(p=>{
+    marker.setLatLng([p.coords.latitude,p.coords.longitude]);
+    const s=stops[index];
+    const d=getDistance(p.coords.latitude,p.coords.longitude,s.lat,s.lng);
+    document.getElementById("distance").innerText=`${Math.round(d)} m`;
+    if(d<=s.radius) showStop(index++);
+  });
 }
 
-function showStop(i) {
-  const s = stops[i];
-  document.getElementById("content").innerHTML =
-    `<h3>${s.name}</h3>
-     <img src="${s.image}" style="width:100%;border-radius:10px;margin-top:8px;">
-     <p style="margin-top:10px;">${s.info}</p>`;
+function showStop(i){
+  const s=stops[i];
+  document.getElementById("content").innerHTML=
+    `<h3>${s.name}</h3><img src="${s.image}" style="width:100%;border-radius:8px;"><p>${s.info}</p>`;
+  const a=document.getElementById("audio");
+  a.src=s.audio;a.play();
 }
 
 function getDistance(a,b,c,d){
@@ -147,6 +156,16 @@ function getDistance(a,b,c,d){
   const A=Math.sin(to(c-a)/2)**2+
     Math.cos(to(a))*Math.cos(to(c))*Math.sin(to(d-b)/2)**2;
   return R*2*Math.atan2(Math.sqrt(A),Math.sqrt(1-A));
+}
+
+if(isTestMode){
+  const tb=document.getElementById("testButtons");
+  stops.forEach((s,i)=>{
+    const b=document.createElement("button");
+    b.innerText=s.name;
+    b.onclick=()=>showStop(i);
+    tb.appendChild(b);
+  });
 }
 </script>
 
