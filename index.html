@@ -6,8 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="font-family: system-ui; text-align: center; padding: 40px;">
+
   <h1>🎰 Vegas Walks</h1>
-  <p>If you see this on your phone, it works perfectly.</p>
-  <p>Next: GPS-triggered Fremont Street tour.</p>
+  <p>Walk Through 120 Years of Las Vegas History</p>
+
+  <button onclick="startTour()" style="padding:12px 20px;font-size:16px;">
+    Start Tour
+  </button>
+
+  <p id="status" style="margin-top:20px;"></p>
+
+  <script>
+    function startTour() {
+      document.getElementById("status").innerText =
+        "Requesting location…";
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          document.getElementById("status").innerText =
+            "GPS works! 📍 Lat: " +
+            position.coords.latitude.toFixed(5) +
+            ", Lng: " +
+            position.coords.longitude.toFixed(5);
+        },
+        error => {
+          document.getElementById("status").innerText =
+            "Location permission denied.";
+        },
+        { enableHighAccuracy: true }
+      );
+    }
+  </script>
+
 </body>
 </html>
