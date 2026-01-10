@@ -5,83 +5,65 @@
   <title>Vegas Walks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="font-family: system-ui; text-align: center; padding: 40px;">
-
-  <h1>🎰 Vegas Walks</h1>
-  <p>Walk Through 120 Years of Las Vegas History</p>
-
-  <button onclick="startTour()" style="padding:12px 20px;font-size:16px;">
-    Start Tour
-  </button>
-
-  <p id="status" style="margin-top:20px;font-weight:600;"></p>
-
-<button onclick="forceStart()" style="margin-top:10px;padding:10px;">
-  I'm at Sin City Hostel
-</button>
-
- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Vegas Walks</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
 
 <body style="font-family: system-ui; text-align: center; padding: 30px;">
 
   <h1>🎰 Vegas Walks</h1>
-  <p>GPS Walking Tour — Downtown Las Vegas</p>
+  <p>Downtown Las Vegas Walking Tour</p>
 
   <button onclick="startTour()" style="padding:14px 22px;font-size:16px;">
     Start Walking Tour
   </button>
 
-  <p id="status" style="margin-top:20px;font-weight:600;"></p>
-  <p id="distance" style="font-size:14px;color:#555;"></p>
+  <div id="content" style="margin-top:25px;font-weight:500;"></div>
+
+  <button onclick="forceStart()" style="margin-top:15px;padding:10px;">
+    I’m at Sin City Hostel
+  </button>
+
+  <p id="distance" style="font-size:14px;color:#555;margin-top:15px;"></p>
 
 <script>
-function forceStart() {
-  stops[0].triggered = true;
-  document.getElementById("status").innerHTML = stops[0].info;
-}
 const stops = [
   {
     name: "Sin City Hostel – Wedding Chapel District",
     lat: 36.15886,
     lng: -115.14939,
-    radius: 350, // meters (intentionally larger for iPhone GPS)
+    radius: 350,
     triggered: false,
     info: `
       💍 <strong>Welcome to the Wedding Capital of the World</strong><br><br>
 
-      You are standing in the heart of Las Vegas’ historic wedding chapel corridor.<br><br>
+      You are standing in one of the most important cultural corridors in Las Vegas history.<br><br>
 
-      In 1931, Nevada changed marriage laws — eliminating waiting periods and residency requirements.
+      In 1931, Nevada eliminated waiting periods and residency requirements for marriage.
       Almost overnight, Las Vegas became the easiest place in America to get married.<br><br>
 
-      Wedding chapels rapidly appeared along this stretch of Las Vegas Boulevard, offering quick,
-      affordable ceremonies — many famous for neon signs, Elvis officiants, and drive-thru weddings.<br><br>
+      Wedding chapels quickly filled this stretch of Las Vegas Boulevard, offering fast,
+      affordable ceremonies — many featuring neon signs, Elvis officiants, and even drive-thru vows.<br><br>
 
-      Nearby chapels include:<br>
+      Nearby iconic chapels include:<br>
       • A Little White Wedding Chapel<br>
       • Chapel of the Bells<br>
       • Viva Las Vegas Wedding Chapel<br>
       • Graceland Wedding Chapel<br><br>
 
-      Thousands of couples — including celebrities — have married within walking distance of where you are now.
+      Thousands of couples — including celebrities — have married within a short walk of where you are now.
     `
   }
 ];
 
-let watchId = null;
+let tourStarted = false;
 
 function startTour() {
-  document.getElementById("status").innerText =
-    "Tour started. Walk normally — GPS active…";
+  tourStarted = true;
+  document.getElementById("content").innerHTML =
+    "Tour started. Walk normally — GPS is active.";
 
-  watchId = navigator.geolocation.watchPosition(
+  navigator.geolocation.watchPosition(
     position => {
+      if (!tourStarted) return;
+
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
 
@@ -90,24 +72,26 @@ function startTour() {
 
         const dist = getDistance(lat, lng, stop.lat, stop.lng);
         document.getElementById("distance").innerText =
-          `Distance to stop: ${Math.round(dist)} meters`;
+          `Distance to start point: ${Math.round(dist)} meters`;
 
         if (dist <= stop.radius) {
           stop.triggered = true;
-          document.getElementById("status").innerHTML = stop.info;
+          document.getElementById("content").innerHTML = stop.info;
         }
       });
     },
     error => {
-      document.getElementById("status").innerText =
+      document.getElementById("content").innerText =
         "Location access denied. Please enable location permissions.";
     },
-    {
-      enableHighAccuracy: true,
-      maximumAge: 0,
-      timeout: 10000
-    }
+    { enableHighAccuracy: true }
   );
+}
+
+function forceStart() {
+  stops[0].triggered = true;
+  tourStarted = true;
+  document.getElementById("content").innerHTML = stops[0].info;
 }
 
 function getDistance(lat1, lon1, lat2, lon2) {
@@ -126,9 +110,6 @@ function getDistance(lat1, lon1, lat2, lon2) {
   return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
