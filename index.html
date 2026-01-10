@@ -17,26 +17,61 @@
   <p id="status" style="margin-top:20px;"></p>
 
   <script>
-    function startTour() {
-      document.getElementById("status").innerText =
-        "Requesting location…";
-
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          document.getElementById("status").innerText =
-            "GPS works! 📍 Lat: " +
-            position.coords.latitude.toFixed(5) +
-            ", Lng: " +
-            position.coords.longitude.toFixed(5);
-        },
-        error => {
-          document.getElementById("status").innerText =
-            "Location permission denied.";
-        },
-        { enableHighAccuracy: true }
-      );
+  const stops = [
+    {
+      name: "Golden Nugget",
+      lat: 36.1707,
+      lng: -115.1437,
+      radius: 60,
+      info: `
+        🎰 <strong>Golden Nugget</strong><br><br>
+        Opened in 1946, this is the oldest casino still operating in Las Vegas.<br><br>
+        ⭐ Fun fact: The Nugget was one of the first casinos to attract high-end gamblers downtown.
+      `
     }
-  </script>
+  ];
+
+  function startTour() {
+    document.getElementById("status").innerText =
+      "Tour started. Walk toward Fremont Street…";
+
+    navigator.geolocation.watchPosition(
+      position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        stops.forEach(stop => {
+          const distance = getDistance(lat, lng, stop.lat, stop.lng);
+
+          if (distance < stop.radius) {
+            document.getElementById("status").innerHTML = stop.info;
+          }
+        });
+      },
+      error => {
+        document.getElementById("status").innerText =
+          "Location permission denied.";
+      },
+      { enableHighAccuracy: true }
+    );
+  }
+
+  function getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371000;
+    const toRad = x => x * Math.PI / 180;
+
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) *
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) ** 2;
+
+    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+  }
+</script>
 
 </body>
 </html>
