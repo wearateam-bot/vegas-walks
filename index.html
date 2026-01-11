@@ -34,19 +34,18 @@ button {
   cursor: pointer;
 }
 
+.map-btn {
+  background: #ff2fb3;
+  color: #fff;
+  margin-top: 10px;
+}
+
 .content {
   display: none;
   background: #1a1a1a;
   padding: 14px;
   border-radius: 10px;
   margin-top: 8px;
-}
-
-a {
-  color: #4da3ff;
-  text-decoration: none;
-  display: inline-block;
-  margin: 6px 0;
 }
 
 img {
@@ -61,91 +60,130 @@ img {
 
 <h1>🚶 Vegas Walks: Fremont Street Tour</h1>
 
-<!-- STOP TEMPLATE -->
-<!-- Copy pattern for consistency -->
-
+<!-- 1 -->
 <div class="stop">
-<button onclick="toggle(this)">1️⃣ Sin City Hostel (Start)</button>
+<button onclick="toggle(this)">1️⃣ 1208 Las Vegas Blvd S (Start)</button>
 <div class="content">
-<p data-lat="36.16991" data-lng="-115.13976">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.16991,-115.13976" target="_blank">🧭 Open in Maps</a>
+<p data-lat="36.15785" data-lng="-115.15552">📍 Locating…</p>
+
+<button class="map-btn"
+onclick="openMap(36.15785, -115.15552)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-Sin City Hostel is surrounded by historic wedding chapels that helped earn Las Vegas
-its reputation as the marriage capital of the world. Fremont Street nearby was once
-the commercial heart of a dusty railroad town.
+This address sits along historic Las Vegas Boulevard South, once the main artery
+connecting early downtown Las Vegas to what would later become the Strip. Nearby
+wedding chapels helped establish Las Vegas as the Wedding Capital of the World.
 </p>
 </div>
 </div>
 
+<!-- 2 -->
 <div class="stop">
 <button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
 <div class="content">
 <p data-lat="36.17038" data-lng="-115.13973">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17038,-115.13973" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17038, -115.13973)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-Opened in 1941, El Cortez is one of the oldest casinos in Las Vegas. Early investors
-included Bugsy Siegel and Meyer Lansky before Jackie Gaughan took control.
+Opened in 1941, El Cortez is one of the oldest operating casinos in Las Vegas.
+Early ownership included mob figures Bugsy Siegel and Meyer Lansky before
+Jackie Gaughan took control.
 </p>
 </div>
 </div>
 
+<!-- 3 -->
 <div class="stop">
 <button onclick="toggle(this)">3️⃣ Fremont Street & Las Vegas Blvd</button>
 <div class="content">
 <p data-lat="36.17071" data-lng="-115.14013">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17071,-115.14013" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17071, -115.14013)">
+🧭 OPEN IN MAPS
+</button>
 
 <img src="fremont-1900s.jpg" alt="Historic Fremont Street">
 
 <p>
 This intersection marks the historic heart of Las Vegas. Fremont Street was the
-first paved road and the first to feature electric lights. What began as a desert
-town became the neon capital of the world.
+first paved road and the first street lit by electricity, transforming a desert
+railroad town into a neon landmark.
 </p>
 </div>
 </div>
 
+<!-- 4 -->
 <div class="stop">
 <button onclick="toggle(this)">4️⃣ Golden Gate Casino</button>
 <div class="content">
 <p data-lat="36.17094" data-lng="-115.14118">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17094,-115.14118" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17094, -115.14118)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
 Opened in 1906 as Hotel Nevada, Golden Gate is the oldest hotel in Las Vegas and
-popularized the shrimp cocktail for a generation of gamblers.
+popularized the shrimp cocktail, now a Vegas staple.
 </p>
 </div>
 </div>
 
+<!-- 5 -->
 <div class="stop">
 <button onclick="toggle(this)">5️⃣ Circa & Legacy Club</button>
 <div class="content">
 <p data-lat="36.17139" data-lng="-115.14208">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17139,-115.14208" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17139, -115.14208)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-Opened in 2020, Circa is the first adults-only resort in Las Vegas. Its massive
-sportsbook reflects how betting culture has gone mainstream.
+Opened in 2020, Circa is the first adults-only casino resort in Las Vegas, featuring
+one of the largest sportsbooks ever built.
 </p>
 </div>
 </div>
 
+<!-- 6 -->
 <div class="stop">
 <button onclick="toggle(this)">6️⃣ Binion’s Gambling Hall</button>
 <div class="content">
 <p data-lat="36.17085" data-lng="-115.14258">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17085,-115.14258" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17085, -115.14258)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-Founded by Benny Binion, this casino hosted the first World Series of Poker and once
-displayed a million dollars in cash to attract players.
+Founded by Benny Binion, this casino hosted the first World Series of Poker and was
+known for displaying one million dollars in cash.
 </p>
 </div>
 </div>
 
+<!-- 7 -->
 <div class="stop">
 <button onclick="toggle(this)">7️⃣ Golden Nugget</button>
 <div class="content">
 <p data-lat="36.17048" data-lng="-115.14343">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17048,-115.14343" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17048, -115.14343)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
 Opened in 1946, the Golden Nugget houses the “Hand of Faith,” one of the largest gold
 nuggets ever discovered.
@@ -153,38 +191,56 @@ nuggets ever discovered.
 </div>
 </div>
 
+<!-- 8 -->
 <div class="stop">
 <button onclick="toggle(this)">8️⃣ Four Queens & Fremont</button>
 <div class="content">
 <p data-lat="36.17012" data-lng="-115.14394">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17012,-115.14394" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17012, -115.14394)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-Opened in 1966, Four Queens helped modernize downtown while preserving classic
-Las Vegas charm. It remains one of the few casinos without a resort fee.
+Opened in 1966, Four Queens helped modernize downtown while keeping classic
+Vegas character — and still has no resort fee.
 </p>
 </div>
 </div>
 
+<!-- 9 -->
 <div class="stop">
 <button onclick="toggle(this)">9️⃣ The D & Sigma Derby</button>
 <div class="content">
 <p data-lat="36.17001" data-lng="-115.14464">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.17001,-115.14464" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.17001, -115.14464)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-The D Casino is home to Sigma Derby — a rare mechanical horse racing game once common
-across Las Vegas and now nearly extinct.
+The D Casino is home to Sigma Derby, a rare mechanical horse racing game once
+found throughout Las Vegas.
 </p>
 </div>
 </div>
 
+<!-- 10 -->
 <div class="stop">
 <button onclick="toggle(this)">🔟 Hammered Harry’s (Tour End)</button>
 <div class="content">
 <p data-lat="36.16964" data-lng="-115.14501">📍 Locating…</p>
-<a href="https://maps.apple.com/?daddr=36.16964,-115.14501" target="_blank">🧭 Walk Here</a>
+
+<button class="map-btn"
+onclick="openMap(36.16964, -115.14501)">
+🧭 OPEN IN MAPS
+</button>
+
 <p>
-Celebrate the end of the tour with a free margarita and half-off appetizers for
-participants — a modern Fremont finish.
+Finish the tour with a free margarita and half-off appetizers — a modern Fremont
+Street celebration.
 </p>
 </div>
 </div>
@@ -195,11 +251,13 @@ function toggle(btn) {
   content.style.display = content.style.display === "block" ? "none" : "block";
 }
 
-let userLat, userLng;
+function openMap(lat, lng) {
+  window.open(`https://maps.apple.com/?daddr=${lat},${lng}`, "_blank");
+}
 
 navigator.geolocation?.watchPosition(pos => {
-  userLat = pos.coords.latitude;
-  userLng = pos.coords.longitude;
+  const userLat = pos.coords.latitude;
+  const userLng = pos.coords.longitude;
 
   document.querySelectorAll("[data-lat]").forEach(el => {
     const d = distance(
