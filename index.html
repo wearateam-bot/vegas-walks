@@ -2,330 +2,225 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vegas Walks – Downtown Las Vegas Walking Tour</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vegas Walks – Fremont Street Tour</title>
 
 <style>
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0b0b0b;
+  color: #fff;
   margin: 0;
   padding: 16px;
-  background: #0e0e0e;
-  color: #ffffff;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  text-align: center;
-  color: #ccc;
   margin-bottom: 20px;
 }
 
 .stop {
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 14px;
   margin-bottom: 14px;
 }
 
-.stop button {
+button {
   width: 100%;
+  padding: 14px;
+  font-size: 16px;
   background: #e10600;
   color: #fff;
   border: none;
-  padding: 14px;
-  font-size: 16px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .content {
   display: none;
-  margin-top: 12px;
-  line-height: 1.5;
+  background: #1a1a1a;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 8px;
 }
 
-.content img {
+a {
+  color: #4da3ff;
+  text-decoration: none;
+  display: inline-block;
+  margin: 6px 0;
+}
+
+img {
   width: 100%;
   border-radius: 10px;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 </style>
 </head>
-<script>
-let userLat = null;
-let userLng = null;
 
-function startGPS() {
-  if (!navigator.geolocation) {
-    alert("GPS not supported on this device.");
-    return;
-  }
-
-  navigator.geolocation.watchPosition(
-    pos => {
-      userLat = pos.coords.latitude;
-      userLng = pos.coords.longitude;
-      updateDistances();
-    },
-    err => {
-      console.warn("Location access denied or unavailable");
-    },
-    { enableHighAccuracy: true }
-  );
-}
-
-function distanceMeters(lat1, lon1, lat2, lon2) {
-  const R = 6371e3;
-  const φ1 = lat1 * Math.PI / 180;
-  const φ2 = lat2 * Math.PI / 180;
-  const Δφ = (lat2 - lat1) * Math.PI / 180;
-  const Δλ = (lon2 - lon1) * Math.PI / 180;
-
-  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-  return Math.round(R * c);
-}
-
-function updateDistances() {
-  document.querySelectorAll("[data-lat]").forEach(el => {
-    if (userLat === null) return;
-
-    const lat = parseFloat(el.dataset.lat);
-    const lng = parseFloat(el.dataset.lng);
-    const d = distanceMeters(userLat, userLng, lat, lng);
-
-    el.innerText = `📍 ${d} meters from you`;
-  });
-}
-
-startGPS();
-</script>
 <body>
 
-<h1>🎰 Vegas Walks</h1>
-<p class="subtitle">Downtown Las Vegas Walking Tour</p>
+<h1>🚶 Vegas Walks: Fremont Street Tour</h1>
 
-<!-- 1 -->
+<!-- STOP TEMPLATE -->
+<!-- Copy pattern for consistency -->
+
 <div class="stop">
-  <button onclick="toggle(this)">1️⃣ Sin City Hostel (Start)</button>
-  <div class="content">
-    <p><strong>📍 Starting Point</strong></p>
-
-    <p data-lat="36.16991" data-lng="-115.13976">
-      📍 Locating…
-    </p>
-
-    <a 
-      href="https://maps.apple.com/?daddr=36.16991,-115.13976"
-      target="_blank"
-    >
-      🧭 Open in Maps
-    </a>
-
-    <p>
-      Sin City Hostel sits in the heart of historic downtown Las Vegas, surrounded
-      by some of the city’s earliest wedding chapels. Fremont Street was once the
-      main commercial road of a dusty desert railroad town before neon transformed
-      it into a global icon.
-    </p>
-  </div>
+<button onclick="toggle(this)">1️⃣ Sin City Hostel (Start)</button>
+<div class="content">
+<p data-lat="36.16991" data-lng="-115.13976">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.16991,-115.13976" target="_blank">🧭 Open in Maps</a>
+<p>
+Sin City Hostel is surrounded by historic wedding chapels that helped earn Las Vegas
+its reputation as the marriage capital of the world. Fremont Street nearby was once
+the commercial heart of a dusty railroad town.
+</p>
+</div>
 </div>
 
-<!-- 2 -->
 <div class="stop">
-  <button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
-  <div class="content">
-
-    <p data-lat="36.17038" data-lng="-115.13973">
-      📍 Locating…
-    </p>
-
-    <a 
-      href="https://maps.apple.com/?daddr=36.17038,-115.13973"
-      target="_blank"
-    >
-      🧭 Walk to this stop
-    </a>
-
-    <p>
-      Opened in 1941, El Cortez is one of the oldest continuously operating casinos
-      in Las Vegas. It was once partially owned by mob figures including Bugsy
-      Siegel and Meyer Lansky, before being sold to Jackie Gaughan.
-    </p>
-
-    <p>
-      Nearby Container Park represents modern downtown redevelopment — a sharp
-      contrast to Fremont’s gritty past.
-    </p>
-
-  </div>
+<button onclick="toggle(this)">2️⃣ El Cortez & Container Park</button>
+<div class="content">
+<p data-lat="36.17038" data-lng="-115.13973">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.17038,-115.13973" target="_blank">🧭 Walk Here</a>
+<p>
+Opened in 1941, El Cortez is one of the oldest casinos in Las Vegas. Early investors
+included Bugsy Siegel and Meyer Lansky before Jackie Gaughan took control.
+</p>
+</div>
 </div>
 
-<!-- 3 -->
 <div class="stop">
 <button onclick="toggle(this)">3️⃣ Fremont Street & Las Vegas Blvd</button>
 <div class="content">
 <p data-lat="36.17071" data-lng="-115.14013">📍 Locating…</p>
 <a href="https://maps.apple.com/?daddr=36.17071,-115.14013" target="_blank">🧭 Walk Here</a>
 
-<img src="fremont-1900s.jpg" style="width:100%; border-radius:10px; margin:10px 0;">
+<img src="fremont-1900s.jpg" alt="Historic Fremont Street">
 
 <p>
-This intersection marks the heart of historic Fremont Street — once a dusty
-frontier road, later the first street in Las Vegas paved and illuminated with
-electric lights. Today it’s a pedestrian canopy and entertainment hub.
+This intersection marks the historic heart of Las Vegas. Fremont Street was the
+first paved road and the first to feature electric lights. What began as a desert
+town became the neon capital of the world.
 </p>
 </div>
 </div>
 
-<!-- 4 -->
 <div class="stop">
 <button onclick="toggle(this)">4️⃣ Golden Gate Casino</button>
 <div class="content">
 <p data-lat="36.17094" data-lng="-115.14118">📍 Locating…</p>
 <a href="https://maps.apple.com/?daddr=36.17094,-115.14118" target="_blank">🧭 Walk Here</a>
-
 <p>
-Opened in 1906 as Hotel Nevada, Golden Gate is Las Vegas’s oldest hotel.
-It introduced shrimp cocktails to Vegas culture and appears in multiple films
-celebrating old Fremont.
+Opened in 1906 as Hotel Nevada, Golden Gate is the oldest hotel in Las Vegas and
+popularized the shrimp cocktail for a generation of gamblers.
 </p>
 </div>
 </div>
 
-Circa is a modern tribute to old-school Vegas — adults-only, high energy, and built
-for sports fans.
-<br><br>
-<b>Sports history:</b><br>
-• Largest sportsbook in the world<br>
-• Stadium-style seating
-<br><br>
-<b>Legacy Club:</b><br>
-A rooftop museum honoring Vegas pioneers with vintage logos and memorabilia.
-<br><br>
-Circa famously opened during the COVID shutdown — and thrived.
-</p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Circa_Resort.jpg">
-</div>
-</div>
-
-<!-- 6 -->
 <div class="stop">
-<button onclick="toggle(this)">6️⃣ Binion’s Horseshoe</button>
+<button onclick="toggle(this)">5️⃣ Circa & Legacy Club</button>
 <div class="content">
+<p data-lat="36.17139" data-lng="-115.14208">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.17139,-115.14208" target="_blank">🧭 Walk Here</a>
 <p>
-<b>Opened:</b> 1951<br>
-<b>Founder:</b> Benny Binion<br><br>
-
-Benny Binion was a Texas bootlegger turned casino legend who believed gamblers should
-be treated like royalty.
-<br><br>
-<b>Historic impact:</b><br>
-• Birthplace of the World Series of Poker<br>
-• Displayed $1 million in cash on the casino floor
-<br><br>
-<b>Dark side:</b><br>
-Tax evasion charges, mob associations, and family scandals nearly destroyed the casino.
-<br><br>
-Binion’s turned gambling into competitive sport.
+Opened in 2020, Circa is the first adults-only resort in Las Vegas. Its massive
+sportsbook reflects how betting culture has gone mainstream.
 </p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Binions_Horseshoe_1969.jpg">
 </div>
 </div>
 
-<!-- 7 -->
+<div class="stop">
+<button onclick="toggle(this)">6️⃣ Binion’s Gambling Hall</button>
+<div class="content">
+<p data-lat="36.17085" data-lng="-115.14258">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.17085,-115.14258" target="_blank">🧭 Walk Here</a>
+<p>
+Founded by Benny Binion, this casino hosted the first World Series of Poker and once
+displayed a million dollars in cash to attract players.
+</p>
+</div>
+</div>
+
 <div class="stop">
 <button onclick="toggle(this)">7️⃣ Golden Nugget</button>
 <div class="content">
+<p data-lat="36.17048" data-lng="-115.14343">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.17048,-115.14343" target="_blank">🧭 Walk Here</a>
 <p>
-<b>Opened:</b> 1946<br>
-<b>Founder:</b> Guy McAfee (former LAPD vice officer)<br><br>
-
-McAfee helped shape modern Vegas nightlife after relocating gambling operations
-from Los Angeles.
-<br><br>
-<b>Famous attraction:</b><br>
-The <b>Hand of Faith</b> — the largest gold nugget ever found using a metal detector.
-<br><br>
-<b>Entertainment history:</b><br>
-Frank Sinatra, Dean Martin, and Jerry Lewis all performed here.
+Opened in 1946, the Golden Nugget houses the “Hand of Faith,” one of the largest gold
+nuggets ever discovered.
 </p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Golden_Nugget_1950s.jpg">
 </div>
 </div>
 
-<!-- 8 -->
 <div class="stop">
-<button onclick="toggle(this)">8️⃣ Four Queens</button>
+<button onclick="toggle(this)">8️⃣ Four Queens & Fremont</button>
 <div class="content">
+<p data-lat="36.17012" data-lng="-115.14394">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.17012,-115.14394" target="_blank">🧭 Walk Here</a>
 <p>
-<b>Opened:</b> 1966<br><br>
-
-Four Queens is one of the most authentic remaining Fremont casinos.
-It has never rebranded or removed its original tower.
-<br><br>
-<b>Why locals love it:</b><br>
-• Straightforward gambling<br>
-• Friendly dealers<br>
-• No gimmicks
-<br><br>
-Represents mid-century Vegas before mega-resorts.
+Opened in 1966, Four Queens helped modernize downtown while preserving classic
+Las Vegas charm. It remains one of the few casinos without a resort fee.
 </p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Four_Queens_1960s.jpg">
 </div>
 </div>
 
-<!-- 9 -->
 <div class="stop">
 <button onclick="toggle(this)">9️⃣ The D & Sigma Derby</button>
 <div class="content">
+<p data-lat="36.17001" data-lng="-115.14464">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.17001,-115.14464" target="_blank">🧭 Walk Here</a>
 <p>
-<b>Era:</b> 1980s game preserved today<br><br>
-
-Sigma Derby is one of the <b>last mechanical horse-racing games in the world</b>.
-Players physically insert coins while cheering together.
-<br><br>
-<b>Why it matters:</b><br>
-• Social gambling<br>
-• No screens or algorithms<br>
-• Loud, chaotic, human
-<br><br>
-Preserved intentionally to keep old Vegas alive.
+The D Casino is home to Sigma Derby — a rare mechanical horse racing game once common
+across Las Vegas and now nearly extinct.
 </p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Sigma_Derby.jpg">
 </div>
 </div>
 
-<!-- 10 -->
 <div class="stop">
-<button onclick="toggle(this)">🔟 Hammered Harry’s</button>
+<button onclick="toggle(this)">🔟 Hammered Harry’s (Tour End)</button>
 <div class="content">
+<p data-lat="36.16964" data-lng="-115.14501">📍 Locating…</p>
+<a href="https://maps.apple.com/?daddr=36.16964,-115.14501" target="_blank">🧭 Walk Here</a>
 <p>
-<b>Final stop:</b><br><br>
-
-Guests receive a <b>free margarita</b> and <b>half-off appetizers</b>.
-<br><br>
-Ending with a drink creates stronger memories, better reviews,
-and happier guests — a classic hospitality technique.
-<br><br>
-Thank you for walking Downtown Las Vegas.
+Celebrate the end of the tour with a free margarita and half-off appetizers for
+participants — a modern Fremont finish.
 </p>
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Las_Vegas_Bar_1960s.jpg">
 </div>
 </div>
 
 <script>
 function toggle(btn) {
   const content = btn.nextElementSibling;
-  content.style.display =
-    content.style.display === "block" ? "none" : "block";
+  content.style.display = content.style.display === "block" ? "none" : "block";
+}
+
+let userLat, userLng;
+
+navigator.geolocation?.watchPosition(pos => {
+  userLat = pos.coords.latitude;
+  userLng = pos.coords.longitude;
+
+  document.querySelectorAll("[data-lat]").forEach(el => {
+    const d = distance(
+      userLat, userLng,
+      parseFloat(el.dataset.lat),
+      parseFloat(el.dataset.lng)
+    );
+    el.innerText = `📍 ${d} meters from you`;
+  });
+});
+
+function distance(lat1, lon1, lat2, lon2) {
+  const R = 6371e3;
+  const φ1 = lat1 * Math.PI/180;
+  const φ2 = lat2 * Math.PI/180;
+  const Δφ = (lat2-lat1) * Math.PI/180;
+  const Δλ = (lon2-lon1) * Math.PI/180;
+  const a = Math.sin(Δφ/2)**2 +
+            Math.cos(φ1)*Math.cos(φ2)*
+            Math.sin(Δλ/2)**2;
+  return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
 }
 </script>
 
