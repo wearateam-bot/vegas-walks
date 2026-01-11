@@ -55,7 +55,58 @@ h1 {
 }
 </style>
 </head>
+<script>
+let userLat = null;
+let userLng = null;
 
+function startGPS() {
+  if (!navigator.geolocation) {
+    alert("GPS not supported on this device.");
+    return;
+  }
+
+  navigator.geolocation.watchPosition(
+    pos => {
+      userLat = pos.coords.latitude;
+      userLng = pos.coords.longitude;
+      updateDistances();
+    },
+    err => {
+      console.warn("Location access denied or unavailable");
+    },
+    { enableHighAccuracy: true }
+  );
+}
+
+function distanceMeters(lat1, lon1, lat2, lon2) {
+  const R = 6371e3;
+  const φ1 = lat1 * Math.PI / 180;
+  const φ2 = lat2 * Math.PI / 180;
+  const Δφ = (lat2 - lat1) * Math.PI / 180;
+  const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+  return Math.round(R * c);
+}
+
+function updateDistances() {
+  document.querySelectorAll("[data-lat]").forEach(el => {
+    if (userLat === null) return;
+
+    const lat = parseFloat(el.dataset.lat);
+    const lng = parseFloat(el.dataset.lng);
+    const d = distanceMeters(userLat, userLng, lat, lng);
+
+    el.innerText = `📍 ${d} meters from you`;
+  });
+}
+
+startGPS();
+</script>
 <body>
 
 <h1>🎰 Vegas Walks</h1>
